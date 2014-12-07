@@ -3,5 +3,8 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'rspec'
-gem 'fakeredis'
+group :development, :test do
+  gem 'rake'
+  gem 'rspec'
+  gem 'fakeredis'
+end
