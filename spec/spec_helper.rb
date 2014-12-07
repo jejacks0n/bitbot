@@ -1,6 +1,8 @@
 require 'bundler/setup'
 
 require 'bitbot'
+require 'fakeredis'
+
 require 'coveralls'
 Coveralls.wear!
 
