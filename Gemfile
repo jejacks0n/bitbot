@@ -7,4 +7,7 @@ group :development, :test do
   gem 'rake'
   gem 'rspec'
   gem 'fakeredis'
+
+  # io services
+  gem 'coveralls', require: false
 end
