@@ -9,5 +9,5 @@ group :development, :test do
   gem 'fakeredis', require: false
 
   # io services
-  gem "codeclimate-test-reporter", group: :test, require: nil
+  gem 'codeclimate-test-reporter', group: :test, require: false
 end
