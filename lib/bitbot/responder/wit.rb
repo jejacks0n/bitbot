@@ -34,15 +34,22 @@ module Bitbot
       def process_args(route, message)
         if message.wit && self.class.intents[message.wit.intent]
           args = []
-          entities = self.class.intents[message.wit.intent][:entities] || {}
-          entities.each do |name, proc|
-            entity = message.wit.entities[name.to_s].try(:first) || {}
-            args << (!entity.empty? && proc.is_a?(Proc) ? proc.call(entity) : entity['value']) || ''
+          entities_from_message(message).each do |name, proc|
+            args << entity_value(message, name, proc)
           end
           args
         else
           super
         end
+      end
+
+      def entities_from_message(message)
+        self.class.intents[message.wit.intent][:entities] || {}
+      end
+
+      def entity_value(message, name, proc)
+        entity = message.wit.entities[name.to_s].try(:first) || {}
+        (!entity.empty? && proc.is_a?(Proc) ? proc.call(entity) : entity['value']) || ''
       end
 
     end
