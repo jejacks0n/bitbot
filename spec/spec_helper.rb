@@ -1,7 +1,6 @@
-require 'rspec'
-require 'bitbot'
-require 'fakeredis'
+require 'bundler/setup'
 
+require 'bitbot'
 require 'coveralls'
 Coveralls.wear!
 
