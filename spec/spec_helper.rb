@@ -3,7 +3,7 @@ require 'bundler/setup'
 require 'bitbot'
 require 'fakeredis'
 
-require 'coveralls'
-Coveralls.wear!
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
 
 Bitbot.configuration.redis_connection = Redis.new
