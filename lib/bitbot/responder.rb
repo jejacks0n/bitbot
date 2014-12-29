@@ -22,7 +22,7 @@ module Bitbot
       @message = message
       stored_message = awaiting_confirmation_for(message) || message
       route = self.class.route_for(stored_message)
-      return instance_exec(*process_args(route, message), &route[:block]) if route
+      return instance_exec(*process_args(route, stored_message), &route[:block]) if route
       raise Bitbot::NoRouteException, 'Unable to respond, no route found for message.'
     end
 
