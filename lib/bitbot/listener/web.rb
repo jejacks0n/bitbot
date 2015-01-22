@@ -26,7 +26,7 @@ module Bitbot
         response = router.route_message(Bitbot::Message.new(req.params))
         ['200', {'Content-Type' => 'application/json'}, [response.to_json]]
       rescue Bitbot::Response => e then respond_with_exception(e)
-      rescue BitbotException then ['404', {}, []]
+      rescue BitbotException then ['204', {}, []]
       rescue Exception => e then render_exception(env, req, e)
       end
 
@@ -34,7 +34,7 @@ module Bitbot
 
       def render_exception(env, req, e)
         handle_exception(Rack::Request.new(env), e)
-        return ['404', {}, []] unless req # only respond with the exception if the request was ok
+        return ['204', {}, []] unless req # only respond with the exception if the request was ok
         ['200', {'Content-Type' => 'application/json'}, [{text: "Oh-uh, we've had some issues: #{e.inspect}"}.to_json]]
       end
 
