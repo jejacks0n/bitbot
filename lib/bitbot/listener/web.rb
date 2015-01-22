@@ -49,7 +49,7 @@ module Bitbot
       private
 
       def router
-        @router || Bitbot::Router.new
+        @router ||= Bitbot::Router.new
       end
 
       def verified_request(env)
