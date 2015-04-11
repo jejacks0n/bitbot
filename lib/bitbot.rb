@@ -21,16 +21,16 @@ require "bitbot/rest_client/users"
 I18n.enforce_available_locales = false
 
 module Bitbot
-  def self.listener(type = :web)
-    "Bitbot::Listener::#{type.to_s.camelize}".constantize.new(&Configuration.listeners[type])
+  def self.listener(klass = Bitbot::Listener::Web)
+    klass.new(&Bitbot.configuration.listeners[klass.type_name])
   end
 
-  def self.listen(type = :web)
-    listener(type).listen
+  def self.listen(klass = Bitbot::Listener::Web)
+    listener(klass).listen
   end
 
   def self.announce(json)
-    Webhook.announce(json)
+    (@webhook ||= Webhook.new).announce(json)
   end
 
   def self.log(msg)

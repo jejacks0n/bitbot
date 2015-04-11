@@ -4,7 +4,6 @@ $:.unshift(root) unless $:.include?(root)
 require 'bitbot'
 
 Bitbot.configure do |config|
-
   config.user_name = 'bitbot'
   config.full_name = 'Bit Bot'
 
@@ -14,7 +13,7 @@ Bitbot.configure do |config|
   config.locales = Dir[File.expand_path('../../locale/*.yml', __FILE__)]
   config.responders = Dir[File.expand_path('../../responders/**/*_responder.rb', __FILE__)]
 
-  config.listener :web do |listener|
+  config.listener Bitbot::Listener::Web do |listener|
     listener.token = ENV['BITBOT_OUTGOING_WEBHOOK_TOKEN'] || 'token'
 
     listener.port = 3000
@@ -23,10 +22,9 @@ Bitbot.configure do |config|
 
   # this will preload the responders
   config.load_responders
-
 end
 
 # start the rack application with the web listener (used within a rackup file)
-run Bitbot.listener(:web)
+run Bitbot.listener(Bitbot::Listener::Web)
 # start a rack server directly (useful for an executable file)
-# Bitbot.listen(:web)
+# Bitbot.listen(Bitbot::Listener::Web)

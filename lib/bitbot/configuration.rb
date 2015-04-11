@@ -39,8 +39,8 @@ module Bitbot
     cattr_accessor :listeners
     @@listeners = {}
 
-    def self.listener(type = :web, &block)
-      @@listeners[type] = block
+    def self.listener(type = Bitbot::Listener::Web, &block)
+      @@listeners[type.type_name] = block
     end
   end
 
