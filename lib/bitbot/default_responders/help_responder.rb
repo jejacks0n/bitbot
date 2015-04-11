@@ -48,6 +48,7 @@ class HelpResponder < Bitbot::Responder
       (responder.command_help || []).each do |help|
         categories[category] << help_for_command(help)
       end
+      categories[category].uniq!
     end
     categories
   end

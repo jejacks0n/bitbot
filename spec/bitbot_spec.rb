@@ -29,7 +29,7 @@ describe Bitbot do
 
   describe ".log" do
     it "prints the message to STDOUT" do
-      expect(STDOUT).to receive(:print).with("_message_\n")
+      expect(STDOUT).to receive(:print).with("Bitbot: _message_\n")
       subject.log("_message_")
     end
   end

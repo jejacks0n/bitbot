@@ -15,6 +15,18 @@ module Bitbot
       !!(awaiting_confirmation_for(message) || route_for(message))
     end
 
+    def self.route_for(message)
+      (@routes || {}).each do |_name, options|
+        return options if message.command? && message.command == options[:command]
+
+        case options[:match]
+        when Regexp then return options if message.text =~ options[:match]
+        when String then return options if message.text == options[:match]
+        end if options[:match]
+      end
+      false
+    end
+
     attr_accessor :message
 
     def respond_to(message)
@@ -59,18 +71,6 @@ module Bitbot
         options[:text] = block.call(self) if block_given?
       end
       options
-    end
-
-    def self.route_for(message)
-      @routes.each do |_name, options|
-        return options if message.command? && message.command == options[:command]
-
-        case options[:match]
-        when Regexp then return options if message.text =~ options[:match]
-        when String then return options if message.text == options[:match]
-        end if options[:match]
-      end
-      false
     end
 
     def process_args(route, message)

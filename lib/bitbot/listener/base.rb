@@ -20,6 +20,10 @@ module Bitbot
 
       private
 
+      def handle_exception(e, req)
+        Bitbot.configuration.handle_exception(e, req)
+      end
+
       def router
         @router ||= Bitbot::Router.new
       end

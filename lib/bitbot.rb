@@ -16,7 +16,7 @@ require "bitbot/responder"
 require "bitbot/webhook"
 require "bitbot/listener/base"
 
-require "bitbot/rest_client/users"
+require "bitbot/rest_client"
 
 module Bitbot
   def self.listener(klass = Bitbot::Listener::Web)
@@ -32,6 +32,6 @@ module Bitbot
   end
 
   def self.log(msg)
-    STDOUT.print("#{msg}\n")
+    STDOUT.print("Bitbot: #{msg}\n")
   end
 end

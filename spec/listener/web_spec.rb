@@ -35,7 +35,7 @@ describe Bitbot::Listener::Web do
     end
 
     it "starts up a rack server" do
-      allow(Rack::Handler::WEBrick).to receive(:run).with(subject, Port: "9292")
+      allow(Rack::Handler::WEBrick).to receive(:run).with(subject, Port: "9292").and_yield(double(stop: nil))
       expect(Bitbot).to receive(:log).with("Starting web listener at 127.0.0.1:9292")
       subject.listen
     end

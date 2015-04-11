@@ -25,7 +25,7 @@ module Bitbot
         response = router.route_message(message)
         ["200", { "Content-Type" => "application/json" }, [response.to_json]]
       rescue Bitbot::Response => e then respond_with_exception(e)
-      rescue Bitbot::Error then respond_to_invalid
+      rescue Bitbot::BadRequestError then respond_to_invalid
       rescue StandardError => e then render_exception(env, req, e)
       end
 
@@ -50,11 +50,11 @@ module Bitbot
       end
 
       def respond_to_invalid
-        ["204", {}, []]
-      end
-
-      def handle_exception(_e, _request)
-        # extend the class and add custom handling.
+        [
+          "204",
+          {},
+          []
+        ]
       end
     end
   end
