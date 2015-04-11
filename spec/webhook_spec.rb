@@ -17,4 +17,11 @@ describe Bitbot::Webhook do
       subject.announce(foo: "bar")
     end
   end
+
+  it "logs that it was unable to announce if the webhook url is invalid" do
+    expect(Bitbot::Webhook).to receive(:uri).and_raise(URI::InvalidURIError)
+    expect(Bitbot).to receive(:log).with("Unable to announce, invalid webhook_url is present.")
+
+    subject.announce(foo: "bar")
+  end
 end

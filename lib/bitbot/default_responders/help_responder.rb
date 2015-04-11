@@ -7,12 +7,6 @@ class HelpResponder < Bitbot::Responder
     respond_with("Providing help for #{message.user_name} in Private Message.")
   end
 
-  route :confirm_test, /^confirm_test$/ do
-    confirm("you wanted a confirmation?", "yes") do
-      respond_with("Congratulations, you've confirmed nothing.")
-    end
-  end
-
   def help_message
     {
       text: "Hello #{message.user_name}, here's what I can do.",

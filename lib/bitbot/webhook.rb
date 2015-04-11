@@ -10,7 +10,7 @@ module Bitbot
       request.set_form_data(payload: options.to_json)
       http.request(request)
     rescue URI::InvalidURIError
-      puts "Unable to announce, invalid webhook_url is present."
+      Bitbot.log("Unable to announce, invalid webhook_url is present.")
     end
 
     def self.http

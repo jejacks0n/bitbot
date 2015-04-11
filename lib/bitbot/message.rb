@@ -12,13 +12,19 @@ module Bitbot
       self["channel"] || self["channel_name"] || self["channel_id"]
     end
 
+    def text=(val)
+      self["text"] = val
+      @text = nil
+      @sanitized_text = nil
+      self["text"]
+    end
+
     def text
-      @text ||= self["text"].gsub(/^(bot|slackbot|#{Bitbot.configuration.user_name}),?(\s+)/i, "")
+      @text ||= self["text"].gsub(/^(#{Bitbot.configuration.user_name}),?(\s+)/i, "")
     end
 
     def sanitized_text
-      return @sanitized_text if @sanitized_text
-      @sanitized_text = self["text"].gsub(/(?:<mailto:[^\|]+\|)?([^@]+@[^,:>]+>)?/, '\1')
+      @sanitized_text ||= self["text"].gsub(/<mailto:(?:[^\|]+\|)?([^>]+)>/, '\1')
     end
 
     def raw_text
