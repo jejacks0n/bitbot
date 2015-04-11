@@ -12,7 +12,7 @@ module Bitbot
           return @connection if @connection
           connection = Bitbot.configuration.redis_connection
           connection = connection.is_a?(Proc) ? connection.call : connection
-          raise Bitbot::NoRedisException unless connection
+          raise Bitbot::NoRedisError.new unless connection
           connection
         end
 

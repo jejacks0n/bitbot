@@ -40,7 +40,7 @@ describe ConfirmableResponder do
     expect(response[:text]).to eq(":warning: Whoa archer, are you sure?")
 
     expect { subject.respond_to(approve_other_channel) }.to raise_error(
-      Bitbot::BitbotException,
+      Bitbot::NoRouteError,
       "Unable to respond, no route found for message."
     )
     subject.respond_to(approve)
@@ -51,7 +51,7 @@ describe ConfirmableResponder do
     expect(response[:text]).to eq(":warning: Whoa archer, are you sure?")
 
     expect { subject.respond_to(approve_other_user) }.to raise_error(
-      Bitbot::BitbotException,
+      Bitbot::NoRouteError,
       "Unable to respond, no route found for message."
     )
     subject.respond_to(approve)

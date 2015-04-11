@@ -17,7 +17,9 @@ describe Bitbot::Responder do
     it "raises an exception if there is no connection" do
       subject.instance_variable_set(:'@connection', nil)
       expect(Bitbot.configuration).to receive(:redis_connection).and_return(nil)
-      expect { subject.connection }.to raise_error(Bitbot::NoRedisException)
+      expect { subject.connection }.to raise_error(
+        Bitbot::NoRedisError
+      )
     end
   end
 end

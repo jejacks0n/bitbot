@@ -4,7 +4,7 @@ module Bitbot
       for responder in responders
         return responder.new.respond_to(message) if responder.responds_to?(message)
       end
-      raise Bitbot::NoResponderException, "No route found"
+      raise Bitbot::NoResponderError.new
     end
 
     private

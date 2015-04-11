@@ -21,12 +21,12 @@ module Bitbot
       end
 
       def call(env)
-        raise Bitbot::BadRequestException unless (req = verified_request(env))
+        raise Bitbot::BadRequestError.new unless (req = verified_request(env))
         message = Bitbot::Message.new(req.params)
         response = router.route_message(message)
         ["200", { "Content-Type" => "application/json" }, [response.to_json]]
       rescue Bitbot::Response => e then respond_with_exception(e)
-      rescue BitbotException then respond_to_invalid
+      rescue Bitbot::Error then respond_to_invalid
       rescue StandardError => e then render_exception(env, req, e)
       end
 

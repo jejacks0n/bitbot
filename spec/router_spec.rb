@@ -21,8 +21,8 @@ describe Bitbot::Router do
 
   it "raises an exception if no responders want to respond" do
     expect { subject.route_message(message) }.to raise_error(
-      Bitbot::NoResponderException,
-      "No route found"
+      Bitbot::NoResponderError,
+      "No route found."
     )
   end
 end
