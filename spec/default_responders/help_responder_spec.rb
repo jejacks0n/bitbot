@@ -11,7 +11,7 @@ describe HelpResponder do
   let(:text) { "help me" }
 
   before do
-    allow(Bitbot::Webhook).to receive(:announce) { |json| @json = json }
+    allow(Bitbot).to receive(:announce) { |json| @json = json }
     allow(Bitbot.configuration).to receive(:responders).and_return([HelpResponder, MockResponder])
   end
 
@@ -26,7 +26,7 @@ describe HelpResponder do
 
   it "sends a private message" do
     subject.respond_to(message)
-    expect(Bitbot::Webhook).to have_received(:announce).once
+    expect(Bitbot).to have_received(:announce).once
     expect(@json[:text]).to eq("Hello archer, here's what I can do.")
     expect(@json[:attachments][0][:text]).to eq <<-MSG.strip_heredoc
     ```

@@ -22,7 +22,7 @@ describe Bitbot do
 
   describe ".announce" do
     it "announces the json provided using the webhook" do
-      expect(Bitbot::Webhook).to receive(:announce).with(foo: "bar")
+      expect_any_instance_of(Bitbot::Webhook).to receive(:announce).with(foo: "bar")
       subject.announce(foo: "bar")
     end
   end
