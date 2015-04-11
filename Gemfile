@@ -1,13 +1,13 @@
-ruby '2.1.5'
-source 'https://rubygems.org'
+ruby "2.2.0"
+source "https://rubygems.org"
 
 gemspec
 
-group :development, :test do
-  gem 'rake'
-  gem 'rspec'
-  gem 'fakeredis', require: false
+# test dependencies
+gem "rake"
+gem "rspec"
+gem "fakeredis", require: false
 
-  # io services
-  gem 'codeclimate-test-reporter', group: :test, require: false
-end
+# io services
+gem "rubocop"
+gem "codeclimate-test-reporter", group: :test, require: false
