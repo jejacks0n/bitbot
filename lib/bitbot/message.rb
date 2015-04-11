@@ -1,8 +1,7 @@
-require 'ostruct'
+require "ostruct"
 
 module Bitbot
   class Message < OpenStruct
-
     def initialize(val)
       val[:wit] = nil
       super
@@ -10,24 +9,24 @@ module Bitbot
     end
 
     def channel
-      self['channel'] || self['channel_name'] || self['channel_id']
+      self["channel"] || self["channel_name"] || self["channel_id"]
     end
 
     def text
-      @text ||= self['text'].gsub(/^(bot|slackbot|#{Bitbot.configuration.user_name}),?(\s+)/i, '')
+      @text ||= self["text"].gsub(/^(bot|slackbot|#{Bitbot.configuration.user_name}),?(\s+)/i, "")
     end
 
     def sanitized_text
       return @sanitized_text if @sanitized_text
-      @sanitized_text = self['text'].gsub(/(?:<mailto:[^\|]+\|)?([^@]+@[^,:>]+>)?/, '\1')
+      @sanitized_text = self["text"].gsub(/(?:<mailto:[^\|]+\|)?([^@]+@[^,:>]+>)?/, '\1')
     end
 
     def raw_text
-      self['text']
+      self["text"]
     end
 
     def command?
-      !!self['command']
+      !!self["command"]
     end
 
     def forced?
@@ -42,6 +41,5 @@ module Bitbot
     def to_json
       to_h.to_json
     end
-
   end
 end

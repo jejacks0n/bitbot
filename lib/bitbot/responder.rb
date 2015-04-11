@@ -1,8 +1,8 @@
-require 'bitbot/responder/dsl'
-require 'bitbot/responder/confirmable'
-require 'bitbot/responder/i18n'
-require 'bitbot/responder/redis'
-require 'bitbot/responder/wit'
+require "bitbot/responder/dsl"
+require "bitbot/responder/confirmable"
+require "bitbot/responder/i18n"
+require "bitbot/responder/redis"
+require "bitbot/responder/wit"
 
 module Bitbot
   class Responder
@@ -23,13 +23,13 @@ module Bitbot
       stored_message = awaiting_confirmation_for(message) || message
       route = self.class.route_for(stored_message)
       return instance_exec(*process_args(route, stored_message), &route[:block]) if route
-      raise Bitbot::NoRouteException, 'Unable to respond, no route found for message.'
+      raise Bitbot::NoRouteException, "Unable to respond, no route found for message."
     end
 
     protected
 
     def respond_with(options, &block)
-      {parse: 'full'}.merge(options_or_text(options, &block))
+      { parse: "full" }.merge(options_or_text(options, &block))
     end
 
     def private_message(options, &block)
@@ -62,7 +62,7 @@ module Bitbot
     end
 
     def self.route_for(message)
-      @routes.each do |name, options|
+      @routes.each do |_name, options|
         return options if message.command? && message.command == options[:command]
 
         case options[:match]
@@ -84,6 +84,5 @@ module Bitbot
       end
       matches
     end
-
   end
 end

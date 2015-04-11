@@ -1,7 +1,6 @@
 class HelpResponder < Bitbot::Responder
-
-  category 'General'
-  help 'help', description: "You're looking at it"
+  category "General"
+  help "help", description: "You're looking at it"
 
   route :help, /^help/ do
     private_message(help_message)
@@ -9,7 +8,7 @@ class HelpResponder < Bitbot::Responder
   end
 
   route :confirm_test, /^confirm_test$/ do
-    confirm('you wanted a confirmation?', 'yes') do
+    confirm("you wanted a confirmation?", "yes") do
       respond_with("Congratulations, you've confirmed nothing.")
     end
   end
@@ -19,11 +18,11 @@ class HelpResponder < Bitbot::Responder
       text: "Hello #{message.user_name}, here's what I can do.",
       attachments: [
         {
-          fallback: 'Unable to display help message on this client.',
+          fallback: "Unable to display help message on this client.",
           pretext: help_text,
           text: command_help,
-          color: '#000000',
-          mrkdwn_in: ['text']
+          color: "#000000",
+          mrkdwn_in: ["text"]
         }
       ]
     }
@@ -39,11 +38,11 @@ class HelpResponder < Bitbot::Responder
   end
 
   def command_help
-    commands = ''
+    commands = ""
     responder_categories.each do |key, value|
       commands << "#{key}:\n  #{value.join("\n  ")}\n" if value
     end
-    %Q{```\n#{commands}```\n}
+    %{```\n#{commands}```\n}
   end
 
   def responder_categories
@@ -60,7 +59,6 @@ class HelpResponder < Bitbot::Responder
   end
 
   def help_for_command(help)
-    "#{sprintf("%-30s", help[:phrase])} - #{help[:description]}"
+    "#{sprintf('%-30s', help[:phrase])} - #{help[:description]}"
   end
-
 end

@@ -1,20 +1,17 @@
-require 'uri'
-require 'net/http'
-require 'net/https'
+require "uri"
+require "net/http"
+require "net/https"
 
 module Bitbot
   class Webhook
-
     def self.announce(options)
-      options.merge!(parse: 'full', user_name: Bitbot.configuration.user_name)
+      options.merge!(parse: "full", user_name: Bitbot.configuration.user_name)
       request = Net::HTTP::Post.new(uri.request_uri)
       request.set_form_data(payload: options.to_json)
       http.request(request)
     rescue URI::InvalidURIError
-      puts 'Unable to announce, invalid webhook_url is present.'
+      puts "Unable to announce, invalid webhook_url is present."
     end
-
-    private
 
     def self.http
       return @http if @http
@@ -27,6 +24,5 @@ module Bitbot
     def self.uri
       @uri ||= URI.parse(Bitbot.configuration.webhook_url)
     end
-
   end
 end

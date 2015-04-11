@@ -1,13 +1,11 @@
 module Bitbot
   class Responder
     module Wit
-
       def self.included(base)
         base.extend(ClassMethods)
       end
 
       module ClassMethods
-
         attr_accessor :intents
 
         def intent(intent, route, options = {})
@@ -26,7 +24,6 @@ module Bitbot
           end
           false
         end
-
       end
 
       private
@@ -49,9 +46,8 @@ module Bitbot
 
       def entity_value(message, name, proc)
         entity = message.wit.entities[name.to_s].try(:first) || {}
-        (!entity.empty? && proc.is_a?(Proc) ? proc.call(entity) : entity['value']) || ''
+        (!entity.empty? && proc.is_a?(Proc) ? proc.call(entity) : entity["value"]) || ""
       end
-
     end
   end
 end

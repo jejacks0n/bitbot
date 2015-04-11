@@ -1,20 +1,20 @@
-require 'active_support/core_ext/module/attribute_accessors'
-require 'active_support/core_ext/module/delegation'
-require 'active_support/core_ext/class/subclasses'
-require 'active_support/core_ext/string/strip'
-require 'active_support/core_ext/string/inflections'
+require "active_support/core_ext/module/attribute_accessors"
+require "active_support/core_ext/module/delegation"
+require "active_support/core_ext/class/subclasses"
+require "active_support/core_ext/string/strip"
+require "active_support/core_ext/string/inflections"
 
-require 'i18n'
-require 'json'
+require "i18n"
+require "json"
 
-require 'bitbot/version'
-require 'bitbot/configuration'
-require 'bitbot/message'
-require 'bitbot/router'
-require 'bitbot/responder'
-require 'bitbot/webhook'
+require "bitbot/version"
+require "bitbot/configuration"
+require "bitbot/message"
+require "bitbot/router"
+require "bitbot/responder"
+require "bitbot/webhook"
 
-require 'bitbot/rest_client/users'
+require "bitbot/rest_client/users"
 
 I18n.enforce_available_locales = false
 
@@ -27,7 +27,7 @@ module Bitbot
   class Response < BitbotException; end
 
   module Listener
-    autoload :Web, 'bitbot/listener/web'
+    autoload :Web, "bitbot/listener/web"
   end
 
   def self.listener(type = :web)
@@ -42,5 +42,7 @@ module Bitbot
     Webhook.announce(json)
   end
 
+  def self.log(msg)
+    STDOUT.print("#{msg}\n")
+  end
 end
-

@@ -1,15 +1,13 @@
-require 'redis'
+require "redis"
 
 module Bitbot
   class Responder
     module Redis
-
       def self.included(base)
         base.extend(ClassMethods)
       end
 
       module ClassMethods
-
         def connection
           return @connection if @connection
           connection = Bitbot.configuration.redis_connection
@@ -36,16 +34,13 @@ module Bitbot
         private
 
         def key_for_redis(message)
-          "bitbot:#{message.user_name}:#{message.channel}:#{message.channel_id}:#{self.name}"
+          "bitbot:#{message.user_name}:#{message.channel}:#{message.channel_id}:#{name}"
         end
-
       end
-
     end
 
     protected
 
     delegate :connection, :store_message, :retrieve_message, :remove_message, to: :class
-
   end
 end
