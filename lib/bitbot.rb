@@ -14,16 +14,13 @@ require "bitbot/message"
 require "bitbot/router"
 require "bitbot/responder"
 require "bitbot/webhook"
+require "bitbot/listener/base"
 
 require "bitbot/rest_client/users"
 
 I18n.enforce_available_locales = false
 
 module Bitbot
-  module Listener
-    autoload :Web, "bitbot/listener/web"
-  end
-
   def self.listener(type = :web)
     "Bitbot::Listener::#{type.to_s.camelize}".constantize.new(&Configuration.listeners[type])
   end
