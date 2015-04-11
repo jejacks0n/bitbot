@@ -9,11 +9,12 @@ module Bitbot
 
       module ClassMethods
         def connection
-          return @connection if @connection
-          connection = Bitbot.configuration.redis_connection
-          connection = connection.is_a?(Proc) ? connection.call : connection
-          raise Bitbot::NoRedisError.new unless connection
-          connection
+          @connection ||= begin
+            connection = Bitbot.configuration.redis_connection
+            connection = connection.is_a?(Proc) ? connection.call : connection
+            raise Bitbot::NoRedisError.new unless connection
+            connection
+          end
         end
 
         def store_message(message)
@@ -31,16 +32,24 @@ module Bitbot
           connection.del(key_for_redis(message))
         end
 
-        private
-
         def key_for_redis(message)
-          "bitbot:#{message.user_name}:#{message.channel}:#{message.channel_id}:#{name}"
+          ["bitbot", message.user_name, message.channel, message.channel_id, name].join(":")
         end
       end
     end
 
-    protected
+    delegate :connection, to: :class
 
-    delegate :connection, :store_message, :retrieve_message, :remove_message, to: :class
+    def store_message
+      self.class.store_message(message)
+    end
+
+    def retrieve_message
+      self.class.retrieve_message(message)
+    end
+
+    def remove_message
+      self.class.remove_message(message)
+    end
   end
 end

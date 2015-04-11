@@ -3,7 +3,7 @@ require "rack"
 module Bitbot
   module Listener
     class Web < Bitbot::Listener::Base
-      attr_writer :token, :path, :port
+      attr_writer :path, :port
 
       def initialize
         super

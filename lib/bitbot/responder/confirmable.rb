@@ -11,19 +11,17 @@ module Bitbot
         end
       end
 
-      protected
-
       delegate :awaiting_confirmation_for, to: :class
 
       def confirm(prompt, confirm = "yes", &block)
         return block.call if message.forced?
 
         if confirmable = awaiting_confirmation_for(message)
-          remove_message(message)
+          remove_message
           return respond_to(confirmable.force!) if message.raw_text == confirm
           respond_with(not_confirmed_message)
         else
-          store_message(message)
+          store_message
           respond_with(confirmation_message(prompt, confirm))
         end
       end

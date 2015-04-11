@@ -5,15 +5,19 @@ describe Bitbot::Listener::Web do
     allow(Bitbot).to receive(:log)
   end
 
+  describe ".type_name" do
+    it "returns the shortened class name" do
+      expect(described_class.type_name).to eq(:web)
+    end
+  end
+
   describe "#initialize" do
     it "can configure itself with a block" do
       config = proc do |l|
-        l.token = "_token_"
         l.path = "_path_"
         l.port = "3000"
       end
       subject = described_class.new(&config)
-      expect(subject.instance_variable_get(:@token)).to eq("_token_")
       expect(subject.instance_variable_get(:@path)).to eq("_path_")
       expect(subject.instance_variable_get(:@port)).to eq("3000")
     end
@@ -22,11 +26,6 @@ describe Bitbot::Listener::Web do
       subject = described_class.new
       expect(subject.instance_variable_get(:@path)).to eq("/")
       expect(subject.instance_variable_get(:@port)).to eq("9292")
-    end
-
-    it "warns if there was no slack token provided" do
-      expect(Bitbot).to receive(:log).with("Warning, no outgoing slack token provided.")
-      described_class.new
     end
   end
 
@@ -43,7 +42,7 @@ describe Bitbot::Listener::Web do
   end
 
   describe "integration" do
-    subject { described_class.new { |l| l.token = ["_token_", "_second_token_"] } }
+    subject { described_class.new { |l| l.token = @token || ["_token_", "_second_token_"] } }
     let(:app) { Rack::MockRequest.new(subject) }
     let(:params) { { text: "foobar", user_name: "jejacks0n", token: "_token_" } }
 
@@ -81,6 +80,14 @@ describe Bitbot::Listener::Web do
 
     it "allows using alternate tokens" do
       response = app.post("/", params: params.merge(token: "_second_token_"))
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(%{{"foo":"bar"}})
+    end
+
+    it "allows configuring only one token" do
+      @token = "_single_token_"
+      response = app.post("/", params: params.merge(token: "_single_token_"))
 
       expect(response.status).to eq(200)
       expect(response.body).to eq(%{{"foo":"bar"}})

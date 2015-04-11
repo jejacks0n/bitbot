@@ -3,9 +3,19 @@ module Bitbot
     autoload :Web, "bitbot/listener/web"
 
     class Base
+      def self.type_name
+        name.split('::').last.downcase.to_sym
+      end
+
+      attr_writer :token
+
       def initialize
         yield self if block_given?
         Bitbot.log("Warning, no outgoing slack token provided.") unless @token
+      end
+
+      def listen
+        raise Bitbot::Error.new("Expected subclass to implement the `listen` method.")
       end
 
       private
