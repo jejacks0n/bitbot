@@ -44,12 +44,16 @@ Bitbot requires being configured, but to simplify the README it's not included h
 The `config.ru` file is provided as a convenience and only serves as an example -- it is not included with the gem.
 
 You can grab the `config.ru` and run the listener with `rackup`. Or if you've installed the generator, you can test your
-setup by starting your rails server and running (based on your configuration):
+setup by starting your rails server and running (based on your configuration and port):
 
 ```shell
 curl --data 'text=help+me&user_name=tester&channel=none&token=token' \
 http://localhost:9292/rack-bitbot-webhook
 ```
+
+You should get a JSON response back. If you don't, Bitbot is intentionally vague about what could've gone wrong, but the
+likely causes are that the token isn't correct, the request isn't a post, or that the username was the same as the bots
+(she doesn't respond to herself).
 
 
 ## Setting up Slack

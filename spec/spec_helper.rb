@@ -10,4 +10,4 @@ ENV["BITBOT_API_TOKEN"] = "_api_token_"
 require "fakeredis"
 require "bitbot"
 
-Dir[File.expand_path('../support/*.rb', __FILE__)].each { |f| require f }
+Dir[File.expand_path("../support/*.rb", __FILE__)].each { |f| require f }

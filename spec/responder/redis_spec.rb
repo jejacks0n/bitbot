@@ -5,7 +5,6 @@ describe Bitbot::Responder::Redis do
   let(:message) { Bitbot::Message.new(attrs) }
   let(:attrs) { { user_name: "archer", text: "lana. lana. LANA!", channel_name: "isis", channel_id: "42" } }
 
-
   describe "#connection" do
     it "gets the connection from the configuration" do
       connection = Bitbot.configuration.redis_connection

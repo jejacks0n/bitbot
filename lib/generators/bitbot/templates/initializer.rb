@@ -18,6 +18,6 @@ Bitbot.configure do |config|
 
   config.on_exception do |e, request|
     # You could log to your error tracking system or something.
-    # Bitbot.log("#{e.class.name}: #{e.message} -- #{request.method} #{request.path}")
+    Bitbot.log("#{e.class.name}: #{e.message} -- #{request.method} #{request.path}")
   end
 end

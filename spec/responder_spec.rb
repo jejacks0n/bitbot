@@ -9,7 +9,6 @@ describe Bitbot::Responder do
   end
 
   describe ".responds_to?" do
-
     it "checks for awaiting confirmation messages" do
       described_class.store_message(message)
 
@@ -54,7 +53,7 @@ describe Bitbot::Responder do
     end
 
     it "sets the message to an instance variable" do
-      described_class.route(:test, attrs[:text]) { }
+      described_class.route(:test, attrs[:text]) {}
 
       subject.respond_to(message)
       expect(subject.message).to eq(message)

@@ -2,8 +2,8 @@ require "spec_helper"
 
 describe Bitbot::Router do
   describe "#route_message" do
-    let(:responder1) { double(new: instance ||= double(respond_to: nil), responds_to?: false) }
-    let(:responder2) { double(new: instance ||= double(respond_to: nil), responds_to?: false) }
+    let(:responder1) { double(new: double(respond_to: nil), responds_to?: false) }
+    let(:responder2) { double(new: double(respond_to: nil), responds_to?: false) }
     let(:message) { Bitbot::Message.new(text: "foo", user_name: "archer") }
 
     it "routes messages to responders who say they handle it" do
@@ -22,9 +22,9 @@ describe Bitbot::Router do
 
     it "raises an exception if no responders want to respond" do
       expect { subject.route_message(message) }.to raise_error(
-          Bitbot::NoResponderError,
-          "No route found."
-        )
+        Bitbot::NoResponderError,
+        "No route found."
+      )
     end
   end
 end

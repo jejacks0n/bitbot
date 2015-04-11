@@ -4,7 +4,7 @@ module Bitbot
 
     class Base
       def self.type_name
-        name.split('::').last.downcase.to_sym
+        name.split("::").last.downcase.to_sym
       end
 
       attr_writer :token

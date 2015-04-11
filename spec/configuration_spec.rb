@@ -16,20 +16,23 @@ describe Bitbot::Configuration do
   end
 
   it "allows adding and loading responders" do
-     subject.responders = fixture("test_responder.rb")
-     expect(Bitbot::Responder.descendants.map(&:to_s)).to_not include("TestResponder")
+    subject.responders = fixture("test_responder.rb")
+    expect(Bitbot::Responder.descendants.map(&:to_s)).to_not include("TestResponder")
 
-     subject.load_responders
-     expect(Bitbot::Responder.descendants.map(&:to_s)).to include("TestResponder")
-     expect(Bitbot).to have_received(:log).with("Loading responders...")
-     expect(Bitbot).to have_received(:log).with("  loading help_responder.rb")
-     expect(Bitbot).to have_received(:log).with("  loading test_responder.rb")
+    subject.load_responders
+    expect(Bitbot::Responder.descendants.map(&:to_s)).to include("TestResponder")
+    expect(Bitbot).to have_received(:log).with("Loading responders...")
+    expect(Bitbot).to have_received(:log).with("  loading help_responder.rb")
+    expect(Bitbot).to have_received(:log).with("  loading test_responder.rb")
   end
 
   it "allows providing an exception handler" do
     e = nil
     req = nil
-    subject.on_exception { |_e, _req| e = _e; req = _req }
+    subject.on_exception do |_e, _req|
+      e = _e
+      req = _req
+    end
 
     subject.handle_exception("_e_", "_req_")
     expect(e).to eq("_e_")
