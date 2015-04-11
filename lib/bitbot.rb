@@ -18,8 +18,6 @@ require "bitbot/listener/base"
 
 require "bitbot/rest_client/users"
 
-I18n.enforce_available_locales = false
-
 module Bitbot
   def self.listener(klass = Bitbot::Listener::Web)
     klass.new(&Bitbot.configuration.listeners[klass.type_name])
