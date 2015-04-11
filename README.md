@@ -117,9 +117,11 @@ end
 We think [Wit.ai](http://wit.ai) is pretty rad for a bot setup, but it does take some work to get it trained and working
 the way you want. This is part of the fun, and part of the challenge.
 
-To use Wit.ai in your responders, you need to include the Wit module. Then you can define intents, and which route they
-go to, as well as any entities that are within them. In the most complex form this would look something like the
-following.
+To use Wit.ai in your responders, you need to require `wit_ruby` and include the Wit module in your responder. Then you
+can define intents, and which route they go to, as well as any entities that are within them. In the most complex form
+this would look something like the following.
+
+**Note:** wit_ruby expects `ENV["WIT_AI_TOKEN"]` to be defined. [read more](https://github.com/gching/wit_ruby)
 
 ```ruby
 class MyResponder < Bitbot::Responder
