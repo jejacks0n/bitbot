@@ -1,5 +1,5 @@
 require "spec_helper"
-require_relative "../../lib/bitbot/default_responders/help_responder"
+require_relative "../../../lib/bitbot/default_responders/help_responder"
 
 class MockResponder < HelpResponder
   category "Other"

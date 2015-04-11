@@ -4,12 +4,14 @@ source "https://rubygems.org"
 gemspec
 
 group :development, :test do
+  gem "wit_ruby"
+
   # test dependencies
   gem "rake"
   gem "rspec"
   gem "fakeredis", require: false
 
   # io services
-  gem "rubocop"
-  gem "codeclimate-test-reporter", group: :test, require: false
+  gem "rubocop", require: false
+  gem "codeclimate-test-reporter", require: false
 end

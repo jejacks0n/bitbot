@@ -11,13 +11,13 @@ Bitbot.configure do |config|
 
   config.load_responders # preload the responders -- may not be desirable in dev/test environments
 
-  config.listener Bitbot::Listener::Web do |listener|
+  config.listener do |listener|
     listener.token = ENV["BITBOT_OUTGOING_WEBHOOK_TOKEN"] || "token"
-    listener.path = "/rack-bitbot-webhook" # this needs to match where you mount the webbook in routes.rb
+    listener.path = "/rack-bitbot-webhook" # this needs to match where you mount bitbot in your routes.rb
   end
 
   config.on_exception do |e, request|
-    # You could log to your error tracking system or something.
+    # you could log to your error tracking system or something.
     Bitbot.log("#{e.class.name}: #{e.message} -- #{request.method} #{request.path}")
   end
 end

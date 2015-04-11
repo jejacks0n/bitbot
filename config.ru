@@ -10,7 +10,7 @@ Bitbot.configure do |config|
   config.responders = Dir[File.expand_path("../../lib/bitbot_responders/**/*_responder.rb", __FILE__)]
   config.load_responders
 
-  config.listener Bitbot::Listener::Web do |listener|
+  config.listener do |listener|
     listener.token = ENV["BITBOT_OUTGOING_WEBHOOK_TOKEN"] || "token"
     listener.path = "/rack-bitbot-webhook"
   end
@@ -21,6 +21,6 @@ Bitbot.configure do |config|
 end
 
 # start the rack application with the web listener (useful within a config.ru file)
-run Bitbot.listener(Bitbot::Listener::Web)
+run Bitbot.listener
 # start a rack server directly (useful for an executable file)
 # Bitbot.listen(Bitbot::Listener::Web)
