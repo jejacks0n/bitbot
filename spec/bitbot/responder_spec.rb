@@ -37,6 +37,26 @@ describe Bitbot::Responder do
     it "returns false if there's no route for the message" do
       expect(described_class.responds_to?(message)).to be_falsy
     end
+
+    context "whitelisting" do
+      it "returns false if the route isn't in the whitelist" do
+        described_class.route(:test, /lana/) {}
+        described_class.route(:secure, /LANA/) { 'Secure route' }
+
+        described_class.whitelist = {
+          support: [:all],
+          moderation: [:test]
+        }
+
+        expect(described_class.responds_to?(message)).to be_truthy
+
+        message.channel_name = "moderation-only"
+        message.text = "LANA"
+        binding.pry
+        expect(described_class.responds_to?(message)).to be_falsy
+      end
+    end
+
   end
 
   describe "#respond_to" do

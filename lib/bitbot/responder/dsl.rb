@@ -12,6 +12,15 @@ module Bitbot
           @category_name = value
         end
 
+        def groups(*values)
+          @groups = values
+        end
+
+        def group(value)
+          @groups = Array(value)
+        end
+
+
         def help(phrase, options = {})
           @command_help ||= []
           @command_help <<= { phrase: phrase, category: @category }.merge(options)

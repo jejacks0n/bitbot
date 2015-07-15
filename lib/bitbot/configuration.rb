@@ -1,6 +1,6 @@
 module Bitbot
   class Configuration
-    cattr_accessor :user_name, :full_name, :webhook_url, :api_token, :redis_connection
+    cattr_accessor :user_name, :full_name, :webhook_url, :api_token, :redis_connection, :whitelist_groups
 
     @@user_name = "bitbot"
     @@full_name = "Bit Bot"
@@ -56,6 +56,33 @@ module Bitbot
     def self.listener(type = Bitbot::Listener::Web, &block)
       @@listeners[type.type_name] = block
     end
+
+    # whitelist
+
+    # By default, any responder without a specified group can use
+    # all commands/responder routes.
+
+    # By adding a group to a responder, i.e.
+    # `group :moderation`
+    # the bot should check a whitelist of to verify the channel name
+    # matches the list of channels in the group's list (taken from
+    # Bitbot configuration).
+
+    cattr_accessor :whitelist_groups, :blacklist_groups
+
+    # Hash of (group => channel name(s)) pairs
+    # ex. { moderation: ['channel1', 'channel2'] }
+
+    @@whitelist_groups = {
+      support: [:friends].freeze,
+      moderation: [:moderation].freeze
+    }
+
+    @@blacklist_groups = {
+      support: [],
+      moderation: []
+    }
+
   end
 
   mattr_accessor :configuration

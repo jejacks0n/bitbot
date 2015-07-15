@@ -12,7 +12,7 @@ module Bitbot
     include I18n
 
     def self.responds_to?(message)
-      !!(awaiting_confirmation_for(message) || route_for(message))
+      !!(awaiting_confirmation_for(message) || route_for(message)) && access_list_allows?(message)
     end
 
     def self.route_for(message)
@@ -26,6 +26,21 @@ module Bitbot
       end
       false
     end
+
+    def self.access_list_allows?(message)
+      whitelist_hash = Bitbot::Configuration.whitelist_groups || {}
+      blacklist_hash = Bitbot::Configuration.blacklist_groups || {}
+      # Allow if no groups have been specified - assume that it should be wide open
+      return true unless @groups
+      # Allow if no whitelist groups are applicable
+      return true if @groups.any? { |group_name| whitelist_hash.has_key?(group_name) && Array(whitelist_hash[group_name]).include?(message.channel) }
+
+      # We have applicable blacklists, make sure at least one of them allows us access
+      (@groups + [ :all ]).any? do |group_name|
+        blacklist_hash.has_key?(group_name) && Array(blacklist_hash[group_name]).include?(message.channel)
+      end
+    end
+
 
     attr_accessor :message
 

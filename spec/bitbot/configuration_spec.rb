@@ -50,6 +50,15 @@ describe Bitbot::Configuration do
     expect(subject.listeners[:custom_type]).to eq(config)
   end
 
+  context 'groups and whitelisting' do
+    it 'uses a default list of channels per group' do
+      expect(subject.whitelist_groups).to include({support: [:friends]})
+      expect(subject.whitelist_groups).not_to include({moderation: [:support]})
+      expect(subject.whitelist_groups).to include({moderation: [:moderation]})
+      expect(subject.whitelist_groups[:moderation].length).to be 1
+    end
+  end
+
   it "allows configuration using a block" do
     Bitbot.configure do |config|
       config.full_name = "Bits to the Bot"
