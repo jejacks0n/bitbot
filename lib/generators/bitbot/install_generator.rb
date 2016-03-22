@@ -6,7 +6,7 @@ module Bitbot
       desc "Installs the Bitbot initializer into your Rails application."
 
       def copy_initializer
-        copy_file "templates/initializer.rb", "config/bitbot.rb"
+        copy_file "templates/initializer.rb", "config/initializers/bitbot.rb"
       end
 
       def add_route
