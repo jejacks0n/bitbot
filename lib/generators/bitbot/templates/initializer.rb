@@ -7,7 +7,7 @@ Bitbot.configure do |config|
 
   config.redis_connection = proc { Redis.current ||= Redis.new(url: ENV["REDIS_URL"] || "redis://127.0.0.1:6379") }
   config.locales = Dir[Rails.root.join("config/locale/*.yml", __FILE__)]
-  config.responders = Dir[Rails.root.join("lib/bitbot_responders/**/*_responder.rb", __FILE__)]
+  config.responders = Dir[Rails.root.join("lib/bitbot_responders/**/*_responder.rb")]
 
   config.load_responders # preload the responders -- may not be desirable in dev/test environments
 
