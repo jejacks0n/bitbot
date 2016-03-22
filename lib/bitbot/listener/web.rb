@@ -32,7 +32,7 @@ module Bitbot
       protected
 
       def render_exception(env, req, e)
-        handle_exception(Rack::Request.new(env), e)
+        handle_exception(e, Rack::Request.new(env))
         return respond_to_invalid unless req # only respond with the exception if the request was ok
         [
           "200",
