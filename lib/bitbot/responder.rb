@@ -40,49 +40,49 @@ module Bitbot
 
     protected
 
-    def respond_with(options, &block)
-      { parse: "full" }.merge(options_or_text(options, &block))
-    end
-
-    def private_message(options, &block)
-      Bitbot.announce(options_or_text(options, &block).merge(channel: "@#{message.user_name}"))
-    end
-    alias_method :direct_message, :private_message
-
-    def announce(options, &block)
-      Bitbot.announce(options_or_text(options, &block).merge(channel: "##{message.channel}"))
-    end
-
-    def delay(seconds, &block)
-      Thread.new do
-        sleep(seconds)
-        block.call
+      def respond_with(options, &block)
+        { parse: "full" }.merge(options_or_text(options, &block))
       end
-    end
+
+      def private_message(options, &block)
+        Bitbot.announce(options_or_text(options, &block).merge(channel: "@#{message.user_name}"))
+      end
+      alias_method :direct_message, :private_message
+
+      def announce(options, &block)
+        Bitbot.announce(options_or_text(options, &block).merge(channel: "##{message.channel}"))
+      end
+
+      def delay(seconds, &block)
+        Thread.new do
+          sleep(seconds)
+          block.call
+        end
+      end
 
     private
 
-    def options_or_text(options, &block)
-      if options.is_a?(String)
-        text = options
-        options = {}
-        options[:text] = text
-      else
-        options[:text] = block.call(self) if block_given?
-      end
-      options
-    end
-
-    def process_args(route, message)
-      matches = []
-      if route[:match].is_a?(Regexp)
-        matches = route[:match].match(message.text)
-        if matches
-          matches = matches.to_a
-          matches.shift
+      def options_or_text(options, &block)
+        if options.is_a?(String)
+          text = options
+          options = {}
+          options[:text] = text
+        else
+          options[:text] = block.call(self) if block_given?
         end
+        options
       end
-      matches
-    end
+
+      def process_args(route, message)
+        matches = []
+        if route[:match].is_a?(Regexp)
+          matches = route[:match].match(message.text)
+          if matches
+            matches = matches.to_a
+            matches.shift
+          end
+        end
+        matches
+      end
   end
 end

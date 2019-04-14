@@ -46,7 +46,7 @@ describe Bitbot::Configuration do
       end
     end
 
-    subject.listener(listener, &(config = proc {}))
+    subject.listener(listener, &(config = proc { }))
     expect(subject.listeners[:custom_type]).to eq(config)
   end
 

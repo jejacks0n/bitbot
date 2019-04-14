@@ -2,10 +2,9 @@ Bitbot
 ======
 
 [![Gem Version](https://img.shields.io/gem/v/bit-bot.svg)](http://badge.fury.io/rb/bit-bot)
-[![Dependency Status](https://img.shields.io/gemnasium/modeset/bitbot.svg)](https://gemnasium.com/modeset/bitbot)
-[![Build Status](https://img.shields.io/travis/modeset/bitbot.svg)](https://travis-ci.org/modeset/bitbot)
-[![Code Climate](https://img.shields.io/codeclimate/github/modeset/bitbot.svg)](https://codeclimate.com/github/modeset/bitbot)
-[![Test Coverage](https://img.shields.io/codeclimate/coverage/github/modeset/bitbot.svg)](https://codeclimate.com/github/modeset/bitbot)
+[![Build Status](https://img.shields.io/travis/jejacks0n/bitbot.svg)](https://travis-ci.org/jejacks0n/bitbot)
+[![Maintainability](https://api.codeclimate.com/v1/badges/7e22d47bd547a055c63e/maintainability)](https://codeclimate.com/github/jejacks0n/bitbot/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/7e22d47bd547a055c63e/test_coverage)](https://codeclimate.com/github/jejacks0n/bitbot/test_coverage)
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
 Bitbot is a lightweight Rack endpoint specifically intended for Slack webhooks. It can be mounted within a Rails app, or
@@ -18,15 +17,12 @@ Responders have support for custom routing and can utilize [Wit.ai](http://wit.a
 For more complex responder examples, check out the [bitbot-responders](https://github.com/modeset/bitbot-responders)
 project.
 
-
 ## Installation
-
 ```ruby
 gem "bitbot"
 ```
 
 ### Rails
-
 Bitbot can run fine without Rails, but if you're using Rails, you can run the install generator. The generator will
 provide an initializer and mount the rack app within your routes -- be sure to update both the initializer and route if
 you change where it's mounted.
@@ -35,9 +31,7 @@ you change where it's mounted.
 rails generate bitbot:install
 ```
 
-
 ## Configuration
-
 Bitbot requires being configured, but to simplify the README it's not included here, please check the
 [config.ru](https://github.com/modeset/bitbot/blob/master/config.ru) for an example and configuration documentation.
 
@@ -57,7 +51,6 @@ likely causes are that the token isn't correct, the request isn't a post, or tha
 
 
 ## Setting up Slack
-
 To get all of the configuration tokens and urls, you'll need to go to Slack and add the Incoming Webhooks, and Outgoing
 Webhooks integrations. You can get your incoming url, and outgoing token by doing this, which you can then set as
 environment variables and load them into your configuration.
@@ -65,9 +58,7 @@ environment variables and load them into your configuration.
 When setting up the Outgoing Webhook integration you will need to know where you have configured the Rack endpoint so
 you can provide that as the url that will be used.
 
-
 ## Adding Responders
-
 There's a basic DSL for creating responders, which allows you to register help for the various commands, and define
 responder routes. Bitbot considers commands to be "routable", and so you can define them using `route`. Here's an
 example responder that specifies `category`, `help` and a single `route`. The `category` indicates grouping within the
@@ -99,7 +90,6 @@ end
 ```
 
 ### Confirmations
-
 Confirmations are included as a base feature, but need redis to work. Provide your own redis connection in the
 configuration and you can add confirmations (and more) to your responders. By default the configuration assumes redis is
 running locally, and is available at Redis.current -- otherwise it will try to connect to redis at the standard port.
@@ -113,7 +103,6 @@ end
 ```
 
 ### Wit.ai
-
 We think [Wit.ai](http://wit.ai) is pretty rad for a bot setup, but it does take some work to get it trained and working
 the way you want. This is part of the fun, and part of the challenge.
 
@@ -149,7 +138,6 @@ used `contact: nil` and the value would be pulled automatically for us.
 
 
 ## Announcing
-
 You can announce any message into any channel on Slack using the bot, for instance in a background job to have something
 happen on an action or predefined schedule. You must configure Bitbot's `webhook_url` by setting up an Incoming Webhook
 Integration on Slack before this will work however.
@@ -178,13 +166,9 @@ Bitbot.announce(MyResponder.new.respond_to(text: "Hi bot", channel: "#general", 
 MyResponder.new.respond_to(text: "Hi bot", channel: "#general", user_name: "system")
 ```
 
-
 ## License
-
 Licensed under the [MIT License](http://creativecommons.org/licenses/MIT/)
 
-Copyright 2014 [Mode Set](https://github.com/modeset)
-
+Copyright 2019 [jejacks0n](https://github.com/jejacks0n)
 
 ## Make Code Not War
-![crest](https://secure.gravatar.com/avatar/aa8ea677b07f626479fd280049b0e19f?s=75)

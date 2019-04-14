@@ -9,8 +9,8 @@ module Bitbot
 
     private
 
-    def responders
-      Bitbot.configuration.responders
-    end
+      def responders
+        Bitbot.configuration.responders
+      end
   end
 end

@@ -1,0 +1,6 @@
++============================================================================+
+Congratulations! Bitbit was successfully installed. Documentation and more can
+be found at: https://github.com/jejacks0n/bitbot
+
+You can now configure Bitbit in config/initializers/bitbot.rb, and define your
+responders in lib/bitbot_responders.
