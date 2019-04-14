@@ -1,11 +1,11 @@
 Bitbot
 ======
 
-[![Gem Version](https://img.shields.io/gem/v/bit-bot.svg)](http://badge.fury.io/rb/bit-bot)
+[![Gem Version](https://img.shields.io/gem/v/bitbot.svg)](http://badge.fury.io/rb/bitbot)
 [![Build Status](https://img.shields.io/travis/jejacks0n/bitbot.svg)](https://travis-ci.org/jejacks0n/bitbot)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7e22d47bd547a055c63e/maintainability)](https://codeclimate.com/github/jejacks0n/bitbot/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/7e22d47bd547a055c63e/test_coverage)](https://codeclimate.com/github/jejacks0n/bitbot/test_coverage)
-[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 Bitbot is a lightweight Rack endpoint specifically intended for Slack webhooks. It can be mounted within a Rails app, or
 can be run as a standalone Rack app with the `config.ru` provided as an example.
