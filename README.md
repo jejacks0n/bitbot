@@ -10,9 +10,8 @@ Bitbot
 Bitbot is a lightweight Rack endpoint specifically intended for Slack webhooks. It can be mounted within a Rails app, or
 can be run as a standalone Rack app with the `config.ru` provided as an example.
 
-You can write custom responders that take advantage of the logic within your larger application.
-
-Responders have support for custom routing and can utilize [Wit.ai](http://wit.ai) natural language processing.
+You can write custom responders that take advantage of the logic within your larger application. Responders have support
+for custom routing and can utilize [Wit.ai](http://wit.ai) natural language processing.
 
 For more complex responder examples, check out the [bitbot-responders](https://github.com/modeset/bitbot-responders)
 project.
@@ -66,8 +65,8 @@ default help responder, but is somewhat arbitrary in it's meaning should you do 
 
 ```ruby
 class MyResponder < Bitbot::Responder
-  category 'Greetings'
-  help 'hi bot', description: "I'll respond with a greeting"
+  category "Greetings"
+  help "hi bot", description: "I'll respond with a greeting"
 
   route :say_hi_back, /^hi bot/i do
     respond_with("awesome! hi #{message.user_name}.")
