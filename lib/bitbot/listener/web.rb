@@ -31,31 +31,31 @@ module Bitbot
 
       protected
 
-      def render_exception(env, req, e)
-        handle_exception(e, Rack::Request.new(env))
-        return respond_to_invalid unless req # only respond with the exception if the request was ok
-        [
-          "200",
-          { "Content-Type" => "application/json" },
-          [{ text: "Oh-uh, we've had some issues: #{e.inspect}" }.to_json]
-        ]
-      end
+        def render_exception(env, req, e)
+          handle_exception(e, Rack::Request.new(env))
+          return respond_to_invalid unless req # only respond with the exception if the request was ok
+          [
+            "200",
+            { "Content-Type" => "application/json" },
+            [{ text: "Oh-uh, we've had some issues: #{e.inspect}" }.to_json]
+          ]
+        end
 
-      def respond_with_exception(e)
-        [
-          "200",
-          { "Content-Type" => "application/json" },
-          [{ text: "Uh-oh, #{e.message}" }.to_json]
-        ]
-      end
+        def respond_with_exception(e)
+          [
+            "200",
+            { "Content-Type" => "application/json" },
+            [{ text: "Uh-oh, #{e.message}" }.to_json]
+          ]
+        end
 
-      def respond_to_invalid
-        [
-          "204",
-          {},
-          []
-        ]
-      end
+        def respond_to_invalid
+          [
+            "204",
+            {},
+            []
+          ]
+        end
     end
   end
 end

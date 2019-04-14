@@ -12,14 +12,14 @@ describe Bitbot::Responder::Wit do
   describe "DSL" do
     it "adds an intent method" do
       described_class.intent(:foo, "_route_", bar: "baz")
-      expect(described_class.intents).to eq(foo: { route: "_route_", bar: "baz" } )
+      expect(described_class.intents).to eq(foo: { route: "_route_", bar: "baz" })
       expect(described_class.instance_variable_get(:@wit)).to be_a(Wit::REST::Session)
     end
   end
 
   describe ".route_for" do
     it "doesn't break the existing routing logic" do
-      route = described_class.route(:test, attrs[:text]) {}
+      route = described_class.route(:test, attrs[:text]) { }
 
       expect(described_class.route_for(message)).to eq(route)
     end
@@ -28,7 +28,7 @@ describe Bitbot::Responder::Wit do
       mock = double(intent: "_intent_", confidence: 0.9)
       allow_any_instance_of(Wit::REST::Session).to receive(:send_message).and_return(mock)
 
-      route = described_class.route(:test, "XXX") {}
+      route = described_class.route(:test, "XXX") { }
       described_class.intent("_intent_", :test)
 
       expect(described_class.route_for(message)).to eq(route)
@@ -38,7 +38,7 @@ describe Bitbot::Responder::Wit do
       mock = double(intent: "_intent_", confidence: 0.7)
       allow_any_instance_of(Wit::REST::Session).to receive(:send_message).and_return(mock)
 
-      described_class.route(:test, "XXX") {}
+      described_class.route(:test, "XXX") { }
       described_class.intent("_intent_", :test)
 
       expect(described_class.route_for(message)).to be_falsey

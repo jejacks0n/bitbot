@@ -16,20 +16,20 @@ describe Bitbot::Responder do
     end
 
     it "routes by a direct string match" do
-      described_class.route(:test, "lana. lana. LANA!") {}
+      described_class.route(:test, "lana. lana. LANA!") { }
 
       expect(described_class.responds_to?(message)).to be_truthy
     end
 
     it "routes by a regexp match" do
-      described_class.route(:test, /lana/) {}
+      described_class.route(:test, /lana/) { }
 
       expect(described_class.responds_to?(message)).to be_truthy
     end
 
     it "handles command messages" do
       message.command = "/foo"
-      described_class.route(:test, "not a match", command: "/foo") {}
+      described_class.route(:test, "not a match", command: "/foo") { }
 
       expect(described_class.responds_to?(message)).to be_truthy
     end
@@ -53,7 +53,7 @@ describe Bitbot::Responder do
     end
 
     it "sets the message to an instance variable" do
-      described_class.route(:test, attrs[:text]) {}
+      described_class.route(:test, attrs[:text]) { }
 
       subject.respond_to(message)
       expect(subject.message).to eq(message)

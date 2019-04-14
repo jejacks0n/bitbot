@@ -95,7 +95,7 @@ describe Bitbot::Listener::Web do
 
     it "renders a useful response on errors" do
       allow_any_instance_of(Bitbot::Router).to receive(:route_message).and_raise(StandardError, "_message_")
-      expect(subject).to receive(:handle_exception).with(instance_of(Rack::Request), instance_of(StandardError))
+      expect(subject).to receive(:handle_exception).with(instance_of(StandardError), instance_of(Rack::Request))
       response = app.post("/", params: params)
 
       expect(response.status).to eq(200)

@@ -3,7 +3,7 @@ require "spec_helper"
 describe Bitbot do
   describe ".listener" do
     it "instantiates the listener with the expected configuration" do
-      expect(Bitbot.configuration).to receive(:listeners).and_return(web: config = proc {})
+      expect(Bitbot.configuration).to receive(:listeners).and_return(web: config = proc { })
       expect(Bitbot::Listener::Web).to receive(:new) { |&block| expect(block).to be(config) }
 
       subject.listener(Bitbot::Listener::Web)

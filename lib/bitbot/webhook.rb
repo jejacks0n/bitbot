@@ -5,7 +5,8 @@ require "net/https"
 module Bitbot
   class Webhook
     def announce(options)
-      options.merge!(parse: "full", user_name: Bitbot.configuration.user_name)
+      options[:parse] = "full"
+      options[:user_name] = Bitbot.configuration.user_name
       request = Net::HTTP::Post.new(uri.request_uri)
       request.set_form_data(payload: options.to_json)
       http.request(request)
@@ -15,17 +16,17 @@ module Bitbot
 
     private
 
-    def http
-      @http ||= begin
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-        http
+      def http
+        @http ||= begin
+          http = Net::HTTP.new(uri.host, uri.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+          http
+        end
       end
-    end
 
-    def uri
-      @uri ||= URI.parse(Bitbot.configuration.webhook_url)
-    end
+      def uri
+        @uri ||= URI.parse(Bitbot.configuration.webhook_url)
+      end
   end
 end

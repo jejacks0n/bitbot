@@ -1,13 +1,20 @@
+require "singleton"
 module Bitbot
   class Configuration
-    cattr_accessor :user_name, :full_name, :webhook_url, :api_token, :redis_connection
+    include Singleton
+
+    cattr_accessor(*[
+      :user_name,
+      :full_name,
+      :webhook_url,
+      :api_token,
+      :redis_connection,
+    ])
 
     @@user_name = "bitbot"
     @@full_name = "Bit Bot"
-
     @@webhook_url = ENV["BITBOT_INCOMING_WEBHOOK_URL"]
     @@api_token = ENV["BITBOT_API_TOKEN"]
-
     @@redis_connection = nil # provide your own redis connection (eg. Redis.current) / can be a proc.
 
     # locales

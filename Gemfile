@@ -1,17 +1,16 @@
-ruby "2.2.0"
 source "https://rubygems.org"
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gemspec
 
-group :development, :test do
-  gem "wit_ruby"
+gem "rails", require: false # only used to test the generator
+gem "wit_ruby"
 
-  # test dependencies
-  gem "rake"
-  gem "rspec"
-  gem "fakeredis", require: false
+# test dependencies
+gem "rspec"
+gem "simplecov"
+gem "fakeredis", require: false
 
-  # io services
-  gem "rubocop", require: false
-  gem "codeclimate-test-reporter", require: false
-end
+# services
+gem "rubocop", require: false
+gem "rubocop-rails_config"
