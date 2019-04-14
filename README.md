@@ -18,7 +18,7 @@ project.
 
 ## Installation
 ```ruby
-gem "bitbot"
+gem "bitbot", github: "jejacks0n/bitbot"
 ```
 
 ### Rails
