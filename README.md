@@ -1,5 +1,4 @@
-Bitbot
-======
+# Bitbot
 
 [![Gem Version](https://img.shields.io/gem/v/bitbot.svg)](http://badge.fury.io/rb/bitbot)
 [![Build Status](https://img.shields.io/travis/jejacks0n/bitbot.svg)](https://travis-ci.org/jejacks0n/bitbot)
@@ -17,11 +16,13 @@ For more complex responder examples, check out the [bitbot-responders](https://g
 project.
 
 ## Installation
+
 ```ruby
 gem "bitbot", github: "jejacks0n/bitbot"
 ```
 
 ### Rails
+
 Bitbot can run fine without Rails, but if you're using Rails, you can run the install generator. The generator will
 provide an initializer and mount the rack app within your routes -- be sure to update both the initializer and route if
 you change where it's mounted.
@@ -31,6 +32,7 @@ rails generate bitbot:install
 ```
 
 ## Configuration
+
 Bitbot requires being configured, but to simplify the README it's not included here, please check the
 [config.ru](https://github.com/modeset/bitbot/blob/master/config.ru) for an example and configuration documentation.
 
@@ -48,8 +50,8 @@ You should get a JSON response back. If you don't, Bitbot is intentionally vague
 likely causes are that the token isn't correct, the request isn't a post, or that the username was the same as the bots
 (she doesn't respond to herself).
 
-
 ## Setting up Slack
+
 To get all of the configuration tokens and urls, you'll need to go to Slack and add the Incoming Webhooks, and Outgoing
 Webhooks integrations. You can get your incoming url, and outgoing token by doing this, which you can then set as
 environment variables and load them into your configuration.
@@ -58,6 +60,7 @@ When setting up the Outgoing Webhook integration you will need to know where you
 you can provide that as the url that will be used.
 
 ## Adding Responders
+
 There's a basic DSL for creating responders, which allows you to register help for the various commands, and define
 responder routes. Bitbot considers commands to be "routable", and so you can define them using `route`. Here's an
 example responder that specifies `category`, `help` and a single `route`. The `category` indicates grouping within the
@@ -89,6 +92,7 @@ end
 ```
 
 ### Confirmations
+
 Confirmations are included as a base feature, but need redis to work. Provide your own redis connection in the
 configuration and you can add confirmations (and more) to your responders. By default the configuration assumes redis is
 running locally, and is available at Redis.current -- otherwise it will try to connect to redis at the standard port.
@@ -102,6 +106,7 @@ end
 ```
 
 ### Wit.ai
+
 We think [Wit.ai](http://wit.ai) is pretty rad for a bot setup, but it does take some work to get it trained and working
 the way you want. This is part of the fun, and part of the challenge.
 
@@ -135,8 +140,8 @@ value, but if it's a proc it will call the proc with the entity hash. Some entit
 provided. In those cases use `duration: ->(e) { e['normalized']['value'] }`, but in our above example, we could've just
 used `contact: nil` and the value would be pulled automatically for us.
 
-
 ## Announcing
+
 You can announce any message into any channel on Slack using the bot, for instance in a background job to have something
 happen on an action or predefined schedule. You must configure Bitbot's `webhook_url` by setting up an Incoming Webhook
 Integration on Slack before this will work however.
@@ -152,7 +157,7 @@ Bitbot.announce(text: "Hello you!", channel: "@username")
 ```
 
 You can also reuse any of the existing responder routes by having the responder handle the route directly. Obviously in
-these cases you must provide anything that that responder might expect from the message, which always includes `text`,
+these cases you must provide anything that that the might expect from the message, which always includes `text`,
 and may include common things like `channel` or `user_name`. Since responder routes can be pretty vague, and implement
 any number of things, you may have to provide additional information as well.
 
@@ -165,9 +170,28 @@ Bitbot.announce(MyResponder.new.respond_to(text: "Hi bot", channel: "#general", 
 MyResponder.new.respond_to(text: "Hi bot", channel: "#general", user_name: "system")
 ```
 
+Regex can get hairy, so the `respond_to` method also accepts a block to return any additional context you may want to use inside your route.
+
+```ruby
+MyResponder.new.respond_to(text: "Archive user", channel: "#admin", user_name: "system") { { id: 2 } }
+
+route :archive, /^archive user/i do
+  # access info from blockk
+  more_info = context_block.call
+  # do something with the info
+  User.find(more_info[:id]).archive
+  respond_with("You got it, User with id: #{more_info[:id]} has been archived.")
+end
+```
+
 ## License
+
 Licensed under the [MIT License](http://creativecommons.org/licenses/MIT/)
 
 Copyright 2019 [jejacks0n](https://github.com/jejacks0n)
 
 ## Make Code Not War
+
+```
+
+```

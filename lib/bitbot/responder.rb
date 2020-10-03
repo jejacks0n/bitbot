@@ -27,10 +27,11 @@ module Bitbot
       false
     end
 
-    attr_accessor :message
+    attr_accessor :message, :context_block
 
-    def respond_to(message)
+    def respond_to(message, &block)
       message = Bitbot::Message.new(message) if message.is_a?(Hash)
+      @context_block = block
       @message = message
       stored_message = awaiting_confirmation_for(message) || message
       route = self.class.route_for(stored_message)

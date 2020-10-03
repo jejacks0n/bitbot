@@ -52,6 +52,12 @@ describe Bitbot::Responder do
       expect(subject.respond_to(message)).to eq("_response_")
     end
 
+    it "allows access in the route to a context block" do
+      described_class.route(:test, attrs[:text]) { "#{context_block.call} _response_" }
+
+      expect(subject.respond_to(message) { 'Relevant Info' }).to eq("Relevant Info _response_")
+    end
+
     it "sets the message to an instance variable" do
       described_class.route(:test, attrs[:text]) { }
 
