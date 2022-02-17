@@ -5,6 +5,7 @@ gemspec
 
 gem "rails", require: false # only used to test the generator
 gem "wit_ruby"
+gem "webrick"
 
 # test dependencies
 gem "rspec"
